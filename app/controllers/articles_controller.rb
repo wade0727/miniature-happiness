@@ -4,16 +4,26 @@ class ArticlesController < ApplicationController
     @article = Article.new
   end
 
+  def show
+    @article = Article.find(params[:id])
+  end
+
   def create
     # To display in the params hash
     #render plain: params[:article].inspect
 
-    # to create and pass to database
+    # if article was saved then flash notice and redirect to @article
     @article = Article.new(article_params)
-    @article.save
-    #return to show page after saving in database
-    redirect_to articles_show(@article)
+    if @article.save
+      flash[:notice] = "Article saved!"
+      redirect_to article_path(@article)
+      # if it didnt save render new template again.
+    else
+      render 'new'
+    end
   end
+
+
 
   private
     def article_params
