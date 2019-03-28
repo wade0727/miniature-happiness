@@ -2,7 +2,11 @@ class ArticlesController < ApplicationController
   before_action :set_params, only: [:show, :edit, :update, :destroy]
 
   def index
-    @articles = Article.all
+    if params[:title]
+      @articles = Article.where('title LIKE ?', "%#{params[:title]}%")
+    else
+      @articles = Article.all
+    end
   end
 
   def new
