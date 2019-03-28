@@ -25,7 +25,7 @@ class ArticlesController < ApplicationController
     # if article was saved then flash notice and redirect to @article
     @article = Article.new(article_params)
     if @article.save
-      flash[:notice] = "Article saved!"
+      flash[:success] = "Article saved!"
       redirect_to article_path(@article)
       # if it didnt save render new template again.
     else
@@ -35,7 +35,7 @@ class ArticlesController < ApplicationController
 
   def update
     if @article.update(article_params)
-      flash[:notice] = "Article updated."
+      flash[:success] = "Article updated."
       redirect_to article_path(@article)
     else
       render 'edit'
@@ -44,7 +44,7 @@ class ArticlesController < ApplicationController
 
   def destroy
     @article.destroy
-    flash[:notice] = "Article has been deleted. (╯°□°)╯︵ ┻━┻"
+    flash[:danger] = "Article has been deleted. (╯°□°)╯︵ ┻━┻"
     redirect_to articles_path
   end
 
